@@ -1,0 +1,27 @@
+Sıfır Güven (Zero Trust) Tüneli - 6 Temel Kontrol Kuralı
+Sistemimiz, içine atılan her dosyayı aşağıdaki 6 kural filtresinden tavizsiz bir şekilde geçirir:
+
+Kural 1: Sözdizimi ve Çökme Kontrolü (Syntax & Linting)
+
+Neye Bakar? Kodun kendi içinde çalışabilirliğini kontrol eder. Eksik parantezler, tanımlanmamış değişkenler veya asla çalışmayacak "ölü" kod blokları (unreachable code) aranır.
+Amaç: Canlı sisteme eklendiğinde uygulamanın çökmesini (fatal error) baştan engellemek.
+Kural 2: Veri Akışı ve Enjeksiyon (Data Flow & Injection)
+
+Neye Bakar? Dışarıdan gelen verinin (kullanıcı girdisinin) filtrelenmeden tehlikeli bir fonksiyona (eval(), SQL sorgusu vb.) gidip gitmediğini kod ağacı (AST) üzerinden takip eder.
+Amaç: Klasik ve en tehlikeli saldırıları (OWASP Top 10 - SQLi, Command Injection, XSS) anında bloklamak.
+Kural 3: Yüksek Entropi ve Sızıntı Avı (Secrets & Entropy)
+
+Neye Bakar? Kodun içine unutulmuş veya bilerek gömülmüş gizli veritabanı şifreleri, AWS anahtarları ve SSH key'lerini arar. Bunu basit kelime aramasıyla değil, karakterlerin matematiksel karmaşıklığına (Shannon Entropisi) bakarak "sahte" ile "gerçeği" ayırt ederek yapar.
+Amaç: Şirketin kritik şifrelerinin yetkisiz ellere (veya kaynak kod depolarına) sızmasını önlemek.
+Kural 4: Tedarik Zinciri ve Zafiyetli Kütüphane (SCA)
+
+Neye Bakar? Yazılımcının projeye dahil ettiği dış paketlerin (örn: requests, lodash) dünya genelinde bilinen bir güvenlik açığı (CVE) barındırıp barındırmadığını Google veritabanından denetler.
+Amaç: Kod temiz olsa bile, kullanılan eski bir modül yüzünden (Log4j gibi) sistemin hacklenmesini engellemek.
+Kural 5: Zayıf Yapılandırma ve Hileler (Misconfigurations)
+
+Neye Bakar? Kırılmış ve güvensiz şifreleme algoritmalarının (MD5, SHA1) kullanılması veya SSL doğrulamasının bilerek kapatılması (verify=False) gibi durumları inceler.
+Amaç: Güvenlik standartlarını esneten kötü pratikleri ve güvenlik duvarını indiren kodları yakalamak.
+Kural 6: Mantıksal Hatalar ve Anti-Kalıplar (Logic & Anti-Patterns)
+
+Neye Bakar? Kodda doğrudan bir zafiyet olmasa bile, örneğin bir Express.js web uygulamasında CSRF korumasının (kalkanının) eklenmesinin unutulması gibi mimari eksiklikleri tespit eder.
+Amaç: İleride baş ağrıtacak veya zafiyet doğurabilecek "kalitesiz" ve eksik kurgulanmış yazılım mimarilerini engellemek.
