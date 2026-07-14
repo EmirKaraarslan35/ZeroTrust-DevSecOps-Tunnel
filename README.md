@@ -54,3 +54,9 @@ Bu araç bir yöneticinin makinesinde çalışırken asla çökmemesi için öze
 Bu yazılım kurum içi kullanım için özel olarak, "Zero-Trust" ilkelerine bağlı kalarak tasarlanmıştır.
 
 *Developed & Architected for Maximum Security.*
+
+---
+
+## 👤 Geliştirici
+
+**Emir Karaarslan** — [GitHub](https://github.com/EmirKaraarslan35)
